@@ -28,4 +28,4 @@ volumes:
     driver: rancher-nfs
     driver_opts:
       host: atlas
-      export: /volume1/home/git/var
+      export: /volume1/home/docker/git/var
