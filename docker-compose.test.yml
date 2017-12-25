@@ -1,0 +1,29 @@
+version: "2"
+
+services:
+ gitserver: 
+    image: haenerconsulting/gitserver
+    environment:
+      - SERVER_NAME="git.haenerconsulting.com"
+      - LDAP_SERVER="openldap.openldap"
+      - LDAP_BASE_DN="dc=haenerconsulting.com,dc=com"
+      - LDAP_FILTER="(uid=$)"
+      - LDAP_REQUIRE="group=cn=git-developers,ou=groups,dc=haenerconsulting,dc=com|user=admin"
+    ports:
+      - "8083:80"
+    volumes:
+      - git-repositories:/git
+      - git-var:/var
+    restart: unless-stopped
+
+volumes:
+  git-repositories:
+    driver_opts:
+      type: none
+      device: $PWD/repositories
+      o: bind
+  git-var:
+    driver_opts:
+      type: none
+      device: $PWD/var
+      o: bind

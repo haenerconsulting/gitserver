@@ -1,10 +1,17 @@
-FROM alpine:3.7
+FROM alpine:latest
 
-ENV PACKAGES "git openssh-client gnupg bash"
+EXPOSE 80
 
-RUN apk add --update $PACKAGES && rm -rf /var/cache/apk/*
+VOLUME ["/git", "/var"]
 
-RUN mkdir -p /root/.ssh
+RUN apk add --no-cache \
+  git \
+  lighttpd \
+  lighttpd-mod_auth 
 
-RUN git config --global user.email "git@haenerconsulting.com" && \
-    git config --global user.name "git bot"
+COPY conf/* /etc/lighttpd/
+
+#RUN git config --global user.email "git@haenerconsulting.com" && \
+#    git config --global user.name "git bot"
+
+CMD ["lighttpd", "-D", "-f", "/etc/lighttpd/lighttpd.conf"]

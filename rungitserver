@@ -1,0 +1,9 @@
+#!/bin/sh
+source  variables.sh
+export $(cut -d= -f1 variables.sh)
+#export SERVER_NAME="git.haenerconsulting.com"
+#export LDAP_SERVER="openldap.openldap"
+#export LDAP_BASE_DN="dc=haenerconsulting.com,dc=com"
+#export LDAP_FILTER="(uid=$)"
+#export LDAP_REQUIRE="group=cn=git-developers,ou=groups,dc=haenerconsulting,dc=com|user=admin"
+docker run -it -v ${PWD}/repositories:/git -v ${PWD}/var:/var -p 8888:80 -e SERVER_NAME -e LDAP_SERVER -e LDAP_BASE_DN -e LDAP_FILTER -e LDAP_REQUIRE  haenerconsulting/gitserver 
