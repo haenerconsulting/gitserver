@@ -10,7 +10,7 @@ services:
       - LDAP_FILTER=(uid=$$)
       - LDAP_REQUIRE=group=cn=git-developers,ou=groups,dc=haenerconsulting,dc=com|user=admin
     ports:
-      - "8888:80"
+      - "8088:80"
     volumes:
       - git-repositories:/git
       - git-var:/var
@@ -22,10 +22,10 @@ volumes:
     driver: rancher-nfs
     driver_opts:
       host: atlas
-      export: /volume1/home/git/repositories
+      export: /volume1/git/repositories
   git-var:
     external: false
     driver: rancher-nfs
     driver_opts:
       host: atlas
-      export: /volume1/home/docker/git/var
+      export: /volume1/docker/git/var
