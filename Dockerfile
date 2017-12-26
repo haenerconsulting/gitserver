@@ -5,7 +5,7 @@ EXPOSE 80
 VOLUME ["/git", "/var"]
 
 RUN apk add --no-cache \
-  git \
+  git-daemon \
   lighttpd \
   lighttpd-mod_auth 
 
