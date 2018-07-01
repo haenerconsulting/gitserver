@@ -1,0 +1,30 @@
+version: "2"
+
+services:
+ gitserver: 
+    image: haenerconsulting/gitserver
+    environment:
+      SERVER_NAME: git.haenerconsulting.com
+      LDAP_SERVER: groucho
+      LDAP_BASE_DN: dc=virtufin,dc=com
+      LDAP_FILTER: (uid=$$)
+      LDAP_REQUIRE: group=cn=virtufin-developers,ou=groups,dc=virtufin,dc=com|user=admin
+      #LDAP_REQUIRE: valid-user
+    ports:
+      - "8088:80"
+    volumes:
+      - git-repositories:/git
+      - git-var:/var
+    restart: unless-stopped
+
+volumes:
+  git-repositories:
+    driver_opts:
+      type: none
+      device: $PWD/repositories
+      o: bind
+  git-var:
+    driver_opts:
+      type: none
+      device: $PWD/var
+      o: bind
