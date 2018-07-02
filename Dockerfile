@@ -11,7 +11,4 @@ RUN apk add --no-cache \
 
 COPY conf/* /etc/lighttpd/
 
-#RUN git config --global user.email "git@haenerconsulting.com" && \
-#    git config --global user.name "git bot"
-
 CMD ["lighttpd", "-D", "-f", "/etc/lighttpd/lighttpd.conf"]
